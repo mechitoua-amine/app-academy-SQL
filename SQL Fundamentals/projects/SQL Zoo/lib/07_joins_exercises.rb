@@ -20,7 +20,7 @@
 #  actor_id    :integer      not null, primary key
 #  ord         :integer
 
-require_relative './sqlzoo.rb'
+require_relative './sqlzoo'
 
 def example_join
   execute(<<-SQL)
@@ -40,6 +40,16 @@ end
 def ford_films
   # List the films in which 'Harrison Ford' has appeared.
   execute(<<-SQL)
+    SELECT
+      movies.title
+    FROM
+      movies
+    JOIN
+      castings ON castings.movie_id = movies.id
+    JOIN
+      actors ON actors.id = castings.actor_id
+    WHERE
+      actors.name = 'Harrison Ford';
   SQL
 end
 
