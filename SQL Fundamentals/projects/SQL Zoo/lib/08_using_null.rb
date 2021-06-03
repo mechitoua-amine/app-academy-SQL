@@ -13,11 +13,17 @@
 #  id          :integer      not null, primary key
 #  name        :string       not null
 
-require_relative './sqlzoo.rb'
+require_relative './sqlzoo'
 
 def null_dept
   # List the teachers who have NULL for their department.
   execute(<<-SQL)
+    SELECT
+      teachers.name
+    FROM
+      teachers
+    WHERE
+      teachers.dept_id IS NULL;
   SQL
 end
 
